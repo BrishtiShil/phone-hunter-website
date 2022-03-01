@@ -3,6 +3,7 @@ const searchMobile = () => {
     const searchText = searchField.value;
     searchField.value = '';
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+
     fetch(url)
         .then(res => res.json())
         .then(data => displaySearchResult(data.data));
@@ -18,11 +19,13 @@ const displaySearchResult = data => {
         div.classList.add('col');
         div.innerHTML = `
         <div class="card h-100 text-center mx-auto">
-            <img src="${data.image}" class="card-img-top" alt="...">
+        <div>
+            <img class="w-50" src="${data.image}"  alt="">
+            </div>
             <div class="card-body">
-               <h3 class="card-title">${data.phone_name}</h3>
-               <h5 class="card-title">${data.brand}</h5>
-               <button onclick="loadMobileDetail('${data.slug}')">Details</button>
+               <h3>Name: ${data.phone_name}</h3>
+               <h5>Brand: ${data.brand}</h5>
+               <button onclick="loadMobileDetail('${data.slug}')" class="btn btn-success">Details</button>
              </div>
         </div>
         `;
@@ -30,24 +33,28 @@ const displaySearchResult = data => {
     })
 }
 
-const loadMobileDetail = phoneId => {
-    const url = ` https://openapi.programming-hero.com/api/phone/${phoneId}`;
+const loadMobileDetail = (id) => {
+    const url = ` https://openapi.programming-hero.com/api/phone/${id}`;
     fetch(url)
         .then(res => res.json())
-        .then(data => displayMobileDetails(data));
-}
-const displayMobileDetails = data => {
-    console.log(data);
+        .then(data => displayMobileDetails(data.data));
+};
+
+const displayMobileDetails = (info) => {
     const mobileDetails = document.getElementById('mobile-details');
+    mobileDetails.textContent = '';
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
-    <img src="${data.image}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3 class="card-title">${data.phone_name}</h3>
-                <h4 class="card-title">${data.releaseDate}</h4>                <h4class="card-title">${data.mainFeatures[storage.chipSet.memory.displaySize]}</h4>
-                <a href="" class="btn btn-primary">Go somewhere</a>
-            </div>
-    `;
+        <img src="${info.image}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h3 class="fw-bold">Name: ${info.name}</h3>
+                    <h6 class="fw-light">ReleaseDate: ${info.releaseDate}</h6> 
+                    <h6>MainFeatures: <span class="fw-light">${info.mainFeatures.storage}</span></h6>
+                    <h6>DisplaySize: <span class="fw-light">${info.mainFeatures.displaySize}</span></h6>
+                    <h6>Memory: <span class="fw-light">${info.mainFeatures.memory}</span></h6>
+                    <h6>ChipSet: <span class="fw-light">${info.mainFeatures.chipSet}</span></h6>
+                </div>
+        `;
     mobileDetails.appendChild(div);
 }
