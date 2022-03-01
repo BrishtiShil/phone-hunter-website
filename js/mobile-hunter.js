@@ -8,6 +8,7 @@ const searchMobile = () => {
         .then(res => res.json())
         .then(data => displaySearchResult(data.data));
 }
+// display mobile result....
 const displaySearchResult = data => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
@@ -39,7 +40,7 @@ const loadMobileDetail = (id) => {
         .then(res => res.json())
         .then(data => displayMobileDetails(data.data));
 };
-
+// display mobile details....
 const displayMobileDetails = (info) => {
     const mobileDetails = document.getElementById('mobile-details');
     mobileDetails.textContent = '';
@@ -49,11 +50,17 @@ const displayMobileDetails = (info) => {
         <img src="${info.image}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h3 class="fw-bold">Name: ${info.name}</h3>
-                    <h6 class="fw-light">ReleaseDate: ${info.releaseDate}</h6> 
-                    <h6>MainFeatures: <span class="fw-light">${info.mainFeatures.storage}</span></h6>
+                    <h6 class="fw-light">ReleaseDate: ${info.releaseDate ? info.releaseDate : 'no release date found'}</h6> 
+                    <h5>MainFeatures: </h5>
+                    <h6>Storage: <span class="fw-light">${info.mainFeatures.storage}</span></h6>
                     <h6>DisplaySize: <span class="fw-light">${info.mainFeatures.displaySize}</span></h6>
                     <h6>Memory: <span class="fw-light">${info.mainFeatures.memory}</span></h6>
                     <h6>ChipSet: <span class="fw-light">${info.mainFeatures.chipSet}</span></h6>
+                    <h5>Sensors: <span class="fw-light">${info.mainFeatures.sensors}</span></h5>
+                    <h5>Others: </h5>
+                    <h6>Bluetooth: <span class="fw-light">${info.others.Bluetooth}</span></h6>
+                    <h6>WLAN: <span class="fw-light">${info.others.WLAN}</span></h6>
+                    <h6>GPS: <span class="fw-light">${info.others.GPS}</span></h6>
                 </div>
         `;
     mobileDetails.appendChild(div);
