@@ -1,13 +1,15 @@
 const searchMobile = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
+    // clear data...
     searchField.value = '';
+    // load Data...
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
-
     fetch(url)
         .then(res => res.json())
         .then(data => displaySearchResult(data.data));
 }
+
 // display mobile result....
 const displaySearchResult = data => {
     const searchResult = document.getElementById('search-result');
@@ -15,7 +17,8 @@ const displaySearchResult = data => {
     if (data.length == 0) {
         searchResult.textContent = "show no result found";
     }
-    data.forEach(data => {
+    const first20Data = data.slice(0, 20);
+    first20Data.forEach(data => {
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
@@ -47,10 +50,10 @@ const displayMobileDetails = (info) => {
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
-        <img src="${info.image}" class="card-img-top" alt="...">
-                <div class="card-body">
+        <img src="${info.image}" class="modal-img-top" alt="...">
+                <div class="modal-dialog modal-dialog-scrollable ">
                     <h3 class="fw-bold">Name: ${info.name}</h3>
-                    <h6 class="fw-light">ReleaseDate: ${info.releaseDate ? info.releaseDate : 'no release date found'}</h6> 
+                    <h5 class="fw-light">ReleaseDate: ${info.releaseDate ? info.releaseDate : 'no release date found'}</h5> 
                     <h5>MainFeatures: </h5>
                     <h6>Storage: <span class="fw-light">${info.mainFeatures.storage}</span></h6>
                     <h6>DisplaySize: <span class="fw-light">${info.mainFeatures.displaySize}</span></h6>
