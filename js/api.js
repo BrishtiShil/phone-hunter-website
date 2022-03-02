@@ -51,7 +51,7 @@ const displayMobileDetails = (info) => {
     div.classList.add('card');
     div.innerHTML = `
         <img src="${info.image}" class="modal-img-top" alt="...">
-                <div class="modal-dialog modal-dialog-scrollable ">
+                <div class="modal-body ">
                     <h3 class="fw-bold">Name: ${info.name}</h3>
                     <h5 class="fw-light">ReleaseDate: ${info.releaseDate ? info.releaseDate : 'no release date found'}</h5> 
                     <h5>MainFeatures: </h5>
